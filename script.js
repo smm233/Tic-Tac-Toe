@@ -1,7 +1,7 @@
 var board;
 var playerX = "X";
 var playerO = "O";
-var firstPlayer = "X";
+var currentPlayer = playerO;
 var gameOver = false;
 
 window.onload = function() {
@@ -26,7 +26,34 @@ function startGame() {
             if(b == 0 || b == 1) {
                 tile.classList.add("vertical-line");
             }
+            tile.addEventListener("click", selectTile);
             document.getElementById("board").append(tile);
         }
     }
+}
+
+function selectTile() {
+    if (gameOver) {
+        return;
+    }
+
+    let coords = this.id.split("-");
+    let a = parseInt(coords[0]);
+    let b = parseInt(coords[1]);
+
+    if(board[a][b] == ' ') {
+        board[a][b] = currentPlayer;
+    } else {
+        return;
+    }
+    
+    this.innerText = currentPlayer;
+
+    if (currentPlayer == playerO) {
+        currentPlayer = playerX;
+    } else {
+        currentPlayer = playerO;
+    }
+
+    checkGame();
 }
