@@ -63,6 +63,7 @@ function selectTile() {
 }
 
 function checkGame() {
+    displayPlayer(currentPlayer);
     //horizontal checking
     for(let a = 0; a < 3; a++) {
         if(board[a][0] == board[a][1] && board[a][1] == board[a][2] && board[a][0] != ' ') {
