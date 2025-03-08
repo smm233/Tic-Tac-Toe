@@ -1,8 +1,10 @@
 var board;
+var value;
 var playerX = "X";
 var playerO = "O";
 var currentPlayer = playerO;
 var gameOver = false;
+var gameTie = false;
 
 window.onload = function() {
     startGame();
@@ -31,9 +33,7 @@ function startGame() {
         }
     }
 
-    let winner = document.getElementById("winner-player")
-        winner.classList.add("winner-player");
-        winner.append("Player " + value + " wins!");
+    displayPlayer(currentPlayer);
 }
 
 function selectTile() {
@@ -59,11 +59,11 @@ function selectTile() {
         currentPlayer = playerO;
     }
 
-    displayPlayer(currentPlayer);
     checkGame();
 }
 
 function checkGame() {
+    displayPlayer(currentPlayer);
     //horizontal checking
     for(let a = 0; a < 3; a++) {
         if(board[a][0] == board[a][1] && board[a][1] == board[a][2] && board[a][0] != ' ') {
@@ -115,5 +115,25 @@ function checkGame() {
         gameOver = true;
         displayPlayer(board[2][0].toString());
         return;
+    }
+
+    if(!gameOver && board[0][0] != ' ' && board[0][1] != ' ' && board[0][2] != ' ' && board[1][0] != ' ' && board[1][1] != ' ' && board[1][2] != ' ' && board[2][0] != ' ' && board[2][1] != ' ' && board[2][2] != ' ') {
+        gameOver = true;
+        gameTie = true;
+        return;
+    }
+}
+
+function displayPlayer(value) {
+    document.getElementById("winner-player").innerHTML = " ";
+    let winner = document.getElementById("winner-player");
+    if(gameOver && !gameTie) {
+        winner.classList.add("winner-player");
+        winner.append("Player " + value + " wins!");
+    } else if (gameOver && gameTie) {
+        winner.classList.add("tie-player");
+        winner.append("It's a tie!");
+    } else {
+        winner.append("Player " + value + " is playing.");
     }
 }
