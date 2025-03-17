@@ -129,8 +129,6 @@ function checkGame() {
 function displayPlayer(value) {
     document.getElementById("winner-player").innerHTML = " ";
     let winner = document.getElementById("winner-player");
-    console.log(gameOver);
-    console.log(gameTie);
     if(gameOver && !gameTie) {
         winner.classList.add("winner-player");
         winner.append("Player " + value + " wins!");
